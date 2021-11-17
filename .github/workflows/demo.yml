@@ -3,13 +3,11 @@ name: demo
 
 on: # 触发条件
   push: # 项目 git push 的时候触发
-    branches: [ master ] # master 分支 push的时候触发
+    branches: [ main ] # master 分支 push的时候触发
     paths: # [触发条件] push的文件在这个范围之内触发
       - '.github/workflows/**'
       - '__test__/**'
       - 'src/**'
-  pull_request:
-    branches: [ main ]
 
 jobs: # 任务
     test: # 任务1 test
