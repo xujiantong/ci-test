@@ -1,0 +1,37 @@
+# 自动化测试
+name: demo
+
+on: # 触发条件
+  push: # 项目 git push 的时候触发
+    branches: [ master ] # master 分支 push的时候触发
+    paths: # [触发条件] push的文件在这个范围之内触发
+      - '.github/workflows/**'
+      - '__test__/**'
+      - 'src/**'
+  pull_request:
+    branches: [ main ]
+
+jobs: # 任务
+    test: # 任务1 test
+        runs-on: ubuntu-latest # 在 ubuntu系统的基础上运行
+        steps: # 步骤 steps, 可自定义也可以使用第三方
+            # Step 1 直接使用 uses 第三方,
+            - uses: actions/checkout@v2 #  意思是 git pull 获取当前最新代码
+            # Step 2 使用 name 和 uses 第三方
+            - name: Use Node.js #  name: step 名称
+              uses: actions/setup-node@v1 # 第三方 actions , 安装nodejs并指定版本号
+              with:
+                  node-version: 14
+            # Step 3 使用 name
+            - name: print node version
+              run: |        # RUN 自定义的命令
+                  node -v
+                  npm -v
+    test2: # 任务2 test2
+        runs-on: ubuntu-latest
+        steps:
+            - run: touch a.txt
+            - run: echo 100 > a.txt
+            - run: cat a.txt
+
+
